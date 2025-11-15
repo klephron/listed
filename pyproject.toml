@@ -10,10 +10,14 @@ dynamic = ["version"]
 
 requires-python = "~=3.14,<4.0"
 dependencies = [
+  "pathspec~=0.12",
 ]
 
 [project.urls]
 Repository = "https://github.com/klephron/listed"
+
+[project.scripts]
+listed = "src.main:main"
 
 [build-system]
 requires = ["hatchling>=1.27", "hatch-vcs>=0.5.0"]
@@ -21,3 +25,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.hatch.build]
+exclude = [
+  "test/**",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
