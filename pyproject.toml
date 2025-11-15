@@ -1,6 +1,6 @@
 [project]
 name = "listed"
-description = "List files with respect to ignore files"
+description = "List files with respect to ignore file"
 authors = [
   { name = "klephron", email = "klephron.dev@gmail.com" }
 ]

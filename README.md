@@ -1,6 +1,6 @@
 # listed
 
-List files with respect to ignore files.
+List files with respect to ignore file.
 
 ## Installation
 
