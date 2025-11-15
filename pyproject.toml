@@ -1,0 +1,23 @@
+[project]
+name = "listed"
+description = "List files with respect to ignore files"
+authors = [
+  { name = "klephron", email = "klephron.dev@gmail.com" }
+]
+readme = "README.md"
+license-files = ["LICEN[CS]E*"]
+dynamic = ["version"]
+
+requires-python = "~=3.14,<4.0"
+dependencies = [
+]
+
+[project.urls]
+Repository = "https://github.com/klephron/listed"
+
+[build-system]
+requires = ["hatchling>=1.27", "hatch-vcs>=0.5.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
