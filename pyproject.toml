@@ -8,7 +8,7 @@ readme = "README.md"
 license-files = ["LICEN[CS]E*"]
 dynamic = ["version"]
 
-requires-python = "~=3.14,<4.0"
+requires-python = "~=3.12,<4.0"
 dependencies = [
   "pathspec~=0.12",
 ]
