@@ -1,3 +1,4 @@
+from typing import Any, Generator
 from pathspec import PathSpec
 from pathlib import Path
 from dataclasses import dataclass
@@ -49,9 +50,7 @@ def parse_args(argv: list[str]):
     )
 
 
-def list_paths(args: Args):
-    paths: list[Path] = []
-
+def yield_paths(args: Args):
     spec = PathSpec.from_lines(
         "gitwildmatch", Path(args.ignorefile).read_text().splitlines() + args.exclusions
     )
@@ -66,19 +65,17 @@ def list_paths(args: Args):
             match = not match
 
         if match:
-            paths.append(p)
-
-    return paths
+            yield p
 
 
-def print_paths(paths: list[Path]):
+def print_paths(paths: list[Path] | Generator[Path, Any, None]):
     for path in paths:
         print(str(path))
 
 
 def main():
     args = parse_args(sys.argv)
-    paths = list_paths(args)
+    paths = yield_paths(args)
     print_paths(paths)
 
 
