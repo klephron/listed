@@ -41,6 +41,8 @@ source = "vcs"
 
 [tool.hatch.build]
 exclude = [
+  ".github/**",
+  "**/.gitignore",
   "test/**",
 ]
 

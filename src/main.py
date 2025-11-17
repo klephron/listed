@@ -2,7 +2,7 @@ from typing import Any, Generator
 from pathspec import PathSpec
 from pathlib import Path
 from dataclasses import dataclass
-from src.__version import __version__
+from __version import __version__
 import argparse
 import sys
 

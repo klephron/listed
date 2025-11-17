@@ -1,0 +1,48 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:
+    name: ${{ matrix.os }} with python-${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.14"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: astral-sh/setup-uv@v7
+
+      # TODO:
+      # https://github.com/pypa/hatch/pull/1922
+      # Wait until hatch release supports dependencies from dependency-groups
+      - uses: actions/checkout@v5
+        with:
+          repository: pypa/hatch.git
+          ref: master
+          path: ./third_party/hatch
+
+      - name: Install hatch from local
+        run: |
+          cd ./third_party/hatch && \
+          uv pip install --system .
+
+      - name: Clean third_party dependencies
+        run: |
+          rm -rf ./third_party
+
+      - name: Lint and check format
+        run: |
+          hatch run dev:ruff check .
+          hatch run dev:mypy .
