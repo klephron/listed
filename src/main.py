@@ -2,6 +2,7 @@ from typing import Any, Generator
 from pathspec import PathSpec
 from pathlib import Path
 from dataclasses import dataclass
+from src.__version import __version__
 import argparse
 import sys
 
@@ -11,6 +12,7 @@ class Args:
     ignorefile: str
     exclusions: list[str]
     invert: bool
+    version: bool
 
 
 def parse_args(argv: list[str]):
@@ -40,6 +42,13 @@ def parse_args(argv: list[str]):
         default=False,
         help="Invert match",
     )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="store_true",
+        default=False,
+        help="Display version information and exit",
+    )
 
     args = parser.parse_args(argv[1:])
 
@@ -47,6 +56,7 @@ def parse_args(argv: list[str]):
         ignorefile=args.ignorefile,
         exclusions=args.exclusions,
         invert=args.invert_match,
+        version=args.version,
     )
 
 
@@ -75,6 +85,11 @@ def print_paths(paths: list[Path] | Generator[Path, Any, None]):
 
 def main():
     args = parse_args(sys.argv)
+
+    if args.version:
+        print(__version__)
+        return
+
     paths = yield_paths(args)
     print_paths(paths)
 

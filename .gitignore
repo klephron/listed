@@ -1,4 +1,8 @@
-dist/**
-.mypy_cache/**
+dist/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
 **/mise.toml
-**/__pycache__/**
+**/__pycache__/
+src/__version.py

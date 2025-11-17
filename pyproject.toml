@@ -13,15 +13,16 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/klephron/listed"
+Tracker = "https://github.com/klephron/listed/issues"
+Source = "https://github.com/klephron/listed"
 
 [project.scripts]
 listed = "src.main:main"
 
 [dependency-groups]
 lint = [
-  "ruff>=0.14",
-  "mypy>=1.18",
+  "ruff>=0.14.5",
+  "mypy>=1.18.2",
 ]
 test = [
   "pytest>=9.0.1",
@@ -32,7 +33,7 @@ dev = [
 ]
 
 [build-system]
-requires = ["hatchling>=1.27", "hatch-vcs>=0.5.0"]
+requires = ["hatchling>=1.27.0", "hatch-vcs>=0.5.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
@@ -43,10 +44,13 @@ exclude = [
   "test/**",
 ]
 
+[tool.hatch.build.hooks.vcs]
+version-file = "src/__version.py"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
 
 [tool.hatch.envs.dev]
 dependency-groups = [
-  "test",
+  "dev",
 ]

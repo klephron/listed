@@ -9,10 +9,7 @@ List files with respect to ignore file.
 ```sh
 git clone git@github.com:klephron/listed.git
 cd listed
-
-pip install build
-python -m build
-pip install dist/listed-*.whl
+pip install .
 ```
 
 ### Sources
@@ -20,9 +17,7 @@ pip install dist/listed-*.whl
 ```sh
 tar -xvf listed-*.tar.gz
 
-pip install build
-python -m build
-pip install dist/listed-*.whl
+pip install .
 ```
 
 ## Development
