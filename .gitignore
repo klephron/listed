@@ -1,2 +1,4 @@
 dist/**
 .mypy_cache/**
+**/mise.toml
+**/__pycache__/**
