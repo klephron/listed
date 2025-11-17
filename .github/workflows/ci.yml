@@ -24,6 +24,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - uses: astral-sh/setup-uv@v7
 
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+
       # TODO:
       # https://github.com/pypa/hatch/pull/1922
       # Wait until hatch release supports dependencies from dependency-groups
@@ -37,6 +43,16 @@ jobs:
       - name: Hatch - install
         run: |
           uv pip install --system ./.build_deps/hatch
+
+      - name: Cache hatch data
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/hatch
+          key: ${{ runner.os }}-hatch-${{ hashFiles('**/pyproject.toml') }}
+
+      - name: Create generated files
+        run: |
+          hatch build -t wheel
 
       - name: Lint and check format
         run: |
