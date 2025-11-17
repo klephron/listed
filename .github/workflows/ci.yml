@@ -27,20 +27,16 @@ jobs:
       # TODO:
       # https://github.com/pypa/hatch/pull/1922
       # Wait until hatch release supports dependencies from dependency-groups
-      - uses: actions/checkout@v5
+      - name: Hatch - checkout master
+        uses: actions/checkout@v5
         with:
           repository: pypa/hatch.git
           ref: master
-          path: ./third_party/hatch
+          path: ./.build_deps/hatch
 
-      - name: Install hatch from local
+      - name: Hatch - install
         run: |
-          cd ./third_party/hatch && \
-          uv pip install --system .
-
-      - name: Clean third_party dependencies
-        run: |
-          rm -rf ./third_party
+          uv pip install --system ./.build_deps/hatch
 
       - name: Lint and check format
         run: |
