@@ -15,6 +15,10 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: ["3.14"]
+        include:
+          - os: ubuntu-latest
+            cache-pip: ~/.cache/pip
+            cache-hatch: ~/.local/share/hatch
 
     steps:
       - uses: actions/checkout@v5
@@ -27,7 +31,7 @@ jobs:
       - name: Cache pip
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pip
+          path: ${{ matrix.cache-pip }}
           key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
 
       # TODO:
@@ -47,7 +51,7 @@ jobs:
       - name: Cache hatch data
         uses: actions/cache@v4
         with:
-          path: ~/.local/share/hatch
+          path: ${{ matrix.cache-hatch }}
           key: ${{ runner.os }}-hatch-${{ hashFiles('**/pyproject.toml') }}
 
       - name: Create generated files
