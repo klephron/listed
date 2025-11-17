@@ -53,6 +53,7 @@ version-file = "src/__version.py"
 packages = ["src"]
 
 [tool.hatch.envs.dev]
-dependency-groups = [
-  "dev",
-]
+dependency-groups = ["dev"]
+
+[tool.pytest]
+testpaths = ["test"]

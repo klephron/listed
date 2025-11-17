@@ -2,7 +2,7 @@ from typing import Any, Generator
 from pathspec import PathSpec
 from pathlib import Path
 from dataclasses import dataclass
-from __version import __version__
+from src.__version import version
 import argparse
 import sys
 
@@ -87,7 +87,7 @@ def main():
     args = parse_args(sys.argv)
 
     if args.version:
-        print(__version__)
+        print(version)
         return
 
     paths = yield_paths(args)
