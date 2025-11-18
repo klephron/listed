@@ -8,7 +8,7 @@ import sys
 
 
 @dataclass
-class Args:
+class Params:
     ignorefile: str
     exclusions: list[str]
     invert: bool
@@ -50,19 +50,20 @@ def parse_args(argv: list[str]):
         help="Display version information and exit",
     )
 
-    args = parser.parse_args(argv[1:])
+    params = parser.parse_args(argv[1:])
 
-    return Args(
-        ignorefile=args.ignorefile,
-        exclusions=args.exclusions,
-        invert=args.invert_match,
-        version=args.version,
+    return Params(
+        ignorefile=params.ignorefile,
+        exclusions=params.exclusions,
+        invert=params.invert_match,
+        version=params.version,
     )
 
 
-def yield_paths(args: Args):
+def yield_paths(params: Params):
     spec = PathSpec.from_lines(
-        "gitwildmatch", Path(args.ignorefile).read_text().splitlines() + args.exclusions
+        "gitwildmatch",
+        Path(params.ignorefile).read_text().splitlines() + params.exclusions,
     )
 
     for p in Path(".").rglob("*"):
@@ -71,7 +72,7 @@ def yield_paths(args: Args):
 
         match = spec.match_file(str(p))
 
-        if not args.invert:
+        if not params.invert:
             match = not match
 
         if match:
@@ -84,13 +85,13 @@ def print_paths(paths: list[Path] | Generator[Path, Any, None]):
 
 
 def main():
-    args = parse_args(sys.argv)
+    params = parse_args(sys.argv)
 
-    if args.version:
+    if params.version:
         print(version)
         return
 
-    paths = yield_paths(args)
+    paths = yield_paths(params)
     print_paths(paths)
 
 
