@@ -1,6 +1,6 @@
 # listed
 
-List files with respect to ignore file.
+List files respecting ignore rules.
 
 ## Installation
 
@@ -22,4 +22,4 @@ pip install .
 
 ## Development
 
-See `mise.toml` and `pyproject.toml` for development tools and dependencies.
+See `pyproject.toml` for development tools and dependencies.
